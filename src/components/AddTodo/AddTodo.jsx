@@ -22,7 +22,7 @@ export default function AddTodo({onAdd}) {
             value={text}
             onChange={handleChange}
         />
-        <button className={styles.button} type="submit">Add!</button>
+        <button className={styles.button} type="submit">Add</button>
     </form>
   )
 }
