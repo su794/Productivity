@@ -5,24 +5,24 @@ import styles from './AddTodo.module.css';
 export default function AddTodo({onAdd}) {
     const [text, setText] = useState('');
     const handleChange = (e) => setText(e.target.value);
-    const handleSubmit = (e) => {
+    const handleAddTodo = (e) => {
         e.preventDefault();
         if(text.trim().length === 0) {
             return;
         }
-        onAdd({id: uuidv4(), text, status: 'active'});
+        onAdd({
+            id: uuidv4(),
+            text,
+            status: 'active',
+        });
+        localStorage.setItem('todos', JSON.stringify(text));
+
         setText('');
     }
   return (
-    <form className={styles.form} onSubmit={handleSubmit}>
-        <input
-            className={styles.input}
-            type="text" 
-            placeholder='Add Todo'
-            value={text}
-            onChange={handleChange}
-        />
-        <button className={styles.button} type="submit">Add</button>
+    <form onSubmit={handleAddTodo}>
+        <input placeholder='Add Todo' type="text" id="todo" name="todo" value={text} onChange={handleChange} />
+        <button>Add</button>
     </form>
   )
 }
