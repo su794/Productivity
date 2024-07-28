@@ -59,6 +59,8 @@ function App() {
     setAllEvents([...allEvents, newEvent]);
   }
 
+  const handleCreateEvent = () => {}
+
   return (
     <DarkModeProvider>
       <h2>Add new Event</h2>
@@ -94,7 +96,7 @@ function App() {
         startAccessor="start"
         endAccessor="end"
         style={{ height: 700, margin: "50px" }}
-      /> 
+      />
       <Filters filters={filters} onFilter={handleCurrentFilter} />
       <TodoList filter={filter} />
     </DarkModeProvider>
