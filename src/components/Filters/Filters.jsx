@@ -14,6 +14,7 @@ export default function Filters( { filters, onFilter } ) {
     const { darkMode, toggleDarkMode } = useDarkMode();
   return (
     <header>
+      <h2>Weekly Todo List</h2>
       <div>
         <button onClick={() => toggleDarkMode()}>
           { darkMode ? <IoSunny /> : <FaMoon /> }
