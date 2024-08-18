@@ -54,12 +54,12 @@ export default function Events() {
             <DatePicker 
             placeholderText="Start Date"
             style={{ marginRight: "10px" }}
-            selected={newEvent.start}
+            selected={newEvent.start.toString()}
             onChange={(start) => setNewEvent({...newEvent, start})}
             />
             <DatePicker 
             placeholderText="End Date"
-            selected={newEvent.end}
+            selected={newEvent.end.toString()}
             onChange={(end) => setNewEvent({...newEvent, end})}
             />
             <button
@@ -76,6 +76,10 @@ export default function Events() {
             endAccessor="end"
             style={{ height: 700, margin: "50px" }}
         />
+
+        {
+          events.map( (eventTodo, i) => <li key={i}>{eventTodo.start.toString()}</li> )
+        }
     </>
     
   )
@@ -85,5 +89,6 @@ function readEventsFromLocalStorage() {
     const storedEvents = localStorage.getItem('events');
 
     let parsedEvents = JSON.parse(storedEvents);
-    return storedEvents ? [] : [];
+
+    return storedEvents ? parsedEvents : [];
 }
