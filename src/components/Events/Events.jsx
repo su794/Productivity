@@ -24,21 +24,22 @@ export default function Events() {
 
   const [events, setEvents] = useState(() => readEventsFromLocalStorage());
 
+  const [startDate, setStartDate] = useState( null );
+
+  console.log(startDate);
+
   useEffect( () => {
     localStorage.setItem('events', JSON.stringify(events));
+    
   }, [events] )
 
   const [newEvent, setNewEvent] = useState({title: "", start: "", end: ""});
-  //const [allEvents, setAllEvents] = useState(events);
 
   function handleAddEvent() {
     setEvents([...events, newEvent]);
 
-    //localStorage.setItem('events', JSON.stringify(newEvent));
+    localStorage.setItem('events', JSON.stringify(newEvent));
   }
-  const handleCreateEvent = () => {}
-
-  console.log(events);
 
   return (
     <>
@@ -55,16 +56,24 @@ export default function Events() {
             placeholderText="Start Date"
             style={{ marginRight: "10px" }}
             selected={newEvent.start.toString()}
-            onChange={(start) => setNewEvent({...newEvent, start})}
+            onChange={(start) => { 
+                setNewEvent({...newEvent, start}) 
+                setStartDate(start);
+              } 
+            }
             />
             <DatePicker 
             placeholderText="End Date"
+            minDate={startDate}
             selected={newEvent.end.toString()}
-            onChange={(end) => setNewEvent({...newEvent, end})}
+            onChange={(end) => {
+                end.setUTCHours(23,59,59,999);
+                setNewEvent({...newEvent, end}) 
+              }
+            }
             />
             <button
-            style={{marginTop: "10px"}}
-            onClick={handleAddEvent}
+              onClick={handleAddEvent}
             >
             Add event
             </button>
@@ -77,18 +86,42 @@ export default function Events() {
             style={{ height: 700, margin: "50px" }}
         />
 
+        <ul>
         {
-          events.map( (eventTodo, i) => <li key={i}>{eventTodo.start.toString()}</li> )
+          
+          events.map( (eventTodo, i) => <li key={i}>{ eventTodo.start ? eventTodo.start.toString() : 'no-start'} { eventTodo.end ? eventTodo.end.toString() : 'no-end'}</li> )
+          
         }
+        </ul>
+        
+
     </>
     
   )
 }
 
 function readEventsFromLocalStorage() {
+
+    function parseDate(k, v) {
+    if (k === "start" || k === "end" ) {
+      
+      return new Date(v);
+    } 
+    // else if( k === "end" ) {
+    //     // get indexof 'T' to replace time(hours);
+    //     const getIndexOfT = v.indexOf('T');
+
+    //     // Replace '07' to '23'
+    //     let newEventEndDate = `${v.substring(0,getIndexOfT+1)}23${v.substring(getIndexOfT+3)}`;
+        
+    //     return new Date(newEventEndDate);
+      
+    // }
+    return v;
+  }
     const storedEvents = localStorage.getItem('events');
 
-    let parsedEvents = JSON.parse(storedEvents);
+    let parsedEvents = JSON.parse(storedEvents, parseDate);
 
     return storedEvents ? parsedEvents : [];
 }
