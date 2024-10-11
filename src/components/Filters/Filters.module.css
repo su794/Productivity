@@ -1,3 +1,36 @@
+.heading {
+    text-align: center;
+}
+
+.themeToggle {
+    position: fixed;
+    top: 0;
+    right: 0;
+}
+
+.themeToggle button {
+    background: #000;
+}
+
+.themeToggle button svg {
+    fill: #d3581f;
+}
+
 .filters {
+    display: flex;
     list-style: none;
+    padding-left: 1rem;
+}
+
+.filters .filter {
+    margin-right: 15px;
+}
+
+.filters .filter button {
+    text-transform: capitalize;
+}
+
+.filters .filter.active button {
+    color: #fff;
+    background: #000;
 }

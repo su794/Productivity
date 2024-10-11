@@ -6,7 +6,7 @@ import Filters from './components/Filters/Filters';
 import Events from './components/Events/Events';
 
 function App() {
-  const filters = ['all', 'active', 'completed'];
+  const filters = ['all', 'active', 'complete'];
   const [filter, setFilter] = useState(filters[0]);
 
   const handleCurrentFilter = (selected) => {
@@ -16,8 +16,10 @@ function App() {
 
   return (
     <DarkModeProvider>
-      <Filters filters={filters} onFilter={handleCurrentFilter} />
-      <TodoList filter={filter} />
+      <div className="weekly-wrapper">
+        <Filters filters={filters} onFilter={handleCurrentFilter} />
+        <TodoList filter={filter} />
+      </div>
       <Events />
     </DarkModeProvider>
   );

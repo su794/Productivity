@@ -12,19 +12,44 @@ export default function Filters( { filters, onFilter } ) {
     }
 
     const { darkMode, toggleDarkMode } = useDarkMode();
+    const [btnClassName, setBtnClassName] = useState('');
+
+    const toggleClass = (filter) => {
+      setCurrentFilter(filter);
+    }
   return (
-    <header>
-      <h2>Weekly Todo List</h2>
-      <div>
+    <>
+      <div className={styles.themeToggle}>
         <button onClick={() => toggleDarkMode()}>
           { darkMode ? <IoSunny /> : <FaMoon /> }
         </button>
       </div>
+      <header>
+      <h1 className={styles.heading}>Weekly Todo List</h1>
       <ul className={styles.filters}>
         {
-            filters.map( filter => <li className={styles.filter} key={filter}><button onClick={ () => { onFilter(filter) }}>{filter}</button></li> )
+            filters.map( filter => 
+              {
+                return <li 
+                        className={`${styles.filter} ${filter == currentFilter ? 'active' : ''} `} 
+                        key={filter}
+                        >
+                          <button
+                            
+                            onClick={ 
+                              () => { 
+                                toggleClass(filter);
+                                onFilter(filter); 
+                              }
+                            }
+                          >
+                            {filter}
+                          </button>
+                        </li> 
+              } )
         }
       </ul>
     </header>
+    </>
   )
 }

@@ -2,12 +2,11 @@
     width: 100%;
     display: flex;
     padding: 1.4rem 1rem;
-    background-color: var(--color-bg-dark);
+    border-top: 1px solid #cf561e;
 }
 
 .input {
     flex: 1 0 auto;
-    font-size: 1.4rem;
     padding: 0.7rem 1rem;
     border: none;
     outline: none;
@@ -17,11 +16,13 @@
 
 .button {
     cursor: pointer;
-    background-color: var(--color-accent);
-    color: var(--color-white);
-    font-size: 1.4rem;
+    color: #fff;
+    background-color: var(--color-orange);
     font-weight: bold;
     padding: 0 2rem;
+    border: none;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
 }

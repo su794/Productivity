@@ -20,9 +20,9 @@ export default function AddTodo({onAdd}) {
         setText('');
     }
   return (
-    <form onSubmit={handleAddTodo}>
-        <input placeholder='Add Todo' type="text" id="todo" name="todo" value={text} onChange={handleChange} />
-        <button>Add</button>
+    <form onSubmit={handleAddTodo} className={styles.form}>
+        <input className={styles.input} placeholder='Add Todo' type="text" id="todo" name="todo" value={text} onChange={handleChange} />
+        <button className={styles.button}>Add</button>
     </form>
   )
 }

@@ -12,11 +12,11 @@ const handleDelete = () => {
     onDelete(todo);
 }
   return (
-    <li key={todo.id}>
-        <input type="checkbox" checked={ ( todo.status === 'complete' )} onChange={handleUpdate} />
-        { todo.text }
-        <span>
-            <button onClick={handleDelete}>
+    <li key={todo.id} className={styles.todo}>
+        <input className={styles.checkbox} type="checkbox" checked={ ( todo.status === 'complete' )} onChange={handleUpdate} />
+        <label className={styles.text}>{ todo.text }</label>
+        <span >
+            <button className={styles.icon} onClick={handleDelete}>
                 <FaTrashAlt />
             </button>
         </span>

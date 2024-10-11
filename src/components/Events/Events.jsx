@@ -9,6 +9,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { v4 as uuidv4 } from 'uuid';
 import EventModal from '../EventModal/EventModal';
+import styles from './Events.module.css';
 
 const locales = {
     "en-US": require("date-fns/locale/en-US")
@@ -91,7 +92,7 @@ export default function Events() {
 
   }
   return (
-    <>
+    <div className={styles.calendar}>
         <h2>Event</h2>
         <div>
             {/* <input
@@ -151,7 +152,7 @@ export default function Events() {
           start={startDatePicker}
           end={endDatePicker}
         />
-    </>
+    </div>
     
   )
 }
