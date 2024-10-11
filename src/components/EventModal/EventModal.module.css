@@ -1,0 +1,11 @@
+.modal-close {
+    display: none;
+}
+
+.modal-open {
+    display: block;
+}
+
+.bg {
+    background: green;
+}
