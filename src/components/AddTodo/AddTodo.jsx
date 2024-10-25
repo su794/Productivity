@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import styles from './AddTodo.module.css';
+import Button from '../Button/Button';
 
 export default function AddTodo({onAdd}) {
     const [text, setText] = useState('');
@@ -22,7 +23,8 @@ export default function AddTodo({onAdd}) {
   return (
     <form onSubmit={handleAddTodo} className={styles.form}>
         <input className={styles.input} placeholder='Add Todo' type="text" id="todo" name="todo" value={text} onChange={handleChange} />
-        <button className={styles.button}>Add</button>
+        {/* <button className={styles.button}>Add</button> */}
+        <Button className={styles.button} text='Add' />
     </form>
   )
 }

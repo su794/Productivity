@@ -13,7 +13,6 @@ export function DarkModeProvider({ children }) {
         const localTheme = window.localStorage.getItem('theme') === 'dark';
         setDarkMode(localTheme);
         updateDarkMode(localTheme);
-        console.log(localTheme);
     }, [] );
     return (
         <DarkModeContext.Provider value={{darkMode, toggleDarkMode}}>

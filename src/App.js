@@ -4,6 +4,7 @@ import TodoList from './components/TodoList/TodoList';
 import { DarkModeProvider } from './context/DarkModeContext';
 import Filters from './components/Filters/Filters';
 import Events from './components/Events/Events';
+import { ModalStatusProvider } from './context/ModalStatusContext';
 
 function App() {
   const filters = ['all', 'active', 'complete'];
@@ -16,11 +17,13 @@ function App() {
 
   return (
     <DarkModeProvider>
-      <div className="weekly-wrapper">
-        <Filters filters={filters} onFilter={handleCurrentFilter} />
-        <TodoList filter={filter} />
-      </div>
-      <Events />
+      <ModalStatusProvider>
+        <div className="weekly-wrapper">
+          <Filters filters={filters} onFilter={handleCurrentFilter} />
+          <TodoList filter={filter} />
+        </div>
+        <Events />
+      </ModalStatusProvider>
     </DarkModeProvider>
   );
 }

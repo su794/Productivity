@@ -1,5 +1,6 @@
 .heading {
     text-align: center;
+    margin: 0;
 }
 
 .themeToggle {
@@ -10,6 +11,10 @@
 
 .themeToggle button {
     background: #000;
+}
+
+.themeToggle button {
+    background: #fff;
 }
 
 .themeToggle button svg {

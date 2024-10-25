@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
 import format from "date-fns/format";
 import parse from "date-fns/parse";
@@ -10,6 +10,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { v4 as uuidv4 } from 'uuid';
 import EventModal from '../EventModal/EventModal';
 import styles from './Events.module.css';
+import { useModalStatus } from '../../context/ModalStatusContext';
 
 const locales = {
     "en-US": require("date-fns/locale/en-US")
@@ -24,7 +25,7 @@ const locales = {
   });
   
 export default function Events() {
-
+  const { modalStatus, toggleModalStatus } = useContext(useModalStatus);
   const [events, setEvents] = useState(() => readEventsFromLocalStorage());
 
   const [text, setText] = useState('');
@@ -32,7 +33,7 @@ export default function Events() {
   const [startDatePicker, setStartDatePicker] = useState('');
   const [endDatePicker, setEndDatePicker] = useState('');
 
-  const [modalStatus, setModalStatus] = useState('modal-close');
+  //const [modalStatus, setModalStatus] = useState('modal-close');
   const [modalType, setModalType] = useState('');
 
   useEffect( () => {
@@ -58,17 +59,8 @@ export default function Events() {
   }
 
   const handleSelect = ({start, end}) => {
-    setModalStatus('modal-open');
+    //setModalStatus('modal-open');
     setModalType('add');
-    // const title = window.prompt('New Event Title');
-    // if( title ) {
-    //   setEvents([...events, {title, start, end}]);
-    // }
-    //setNewEvent({title: '', start, end});
-    
-    //setEvents([...events, {title: '', start, end}]);
-
-    // localStorage.setItem('events', JSON.stringify(newEvent));
   
     setStartDatePicker(start);
     setEndDatePicker(end);
@@ -76,13 +68,13 @@ export default function Events() {
   }
 
   const handleDateClick = (e) => {
-    setModalStatus('modal-open');
+    //setModalStatus('modal-open');
     setModalType('edit');
     setStartDatePicker(e.start);
     console.log(e);
   };
 
-  const handleModalClose = (status) => setModalStatus(status);
+  //const handleModalClose = (status) => setModalStatus(status);
   const handleModalConfirm = (eModal) => { 
     console.log(eModal);
     const { id, title, start, end } = eModal; 
@@ -93,44 +85,8 @@ export default function Events() {
   }
   return (
     <div className={styles.calendar}>
-        <h2>Event</h2>
+        <h2>Canlendar</h2>
         <div>
-            {/* <input
-              type="text" 
-              placeholder='Add Title' 
-              style={{ width: "20%", marginRight: "10px" }}
-              value={text}
-              onChange={handleTextChange}
-            /> */}
-            {/* <DatePicker 
-            placeholderText="Start Date"
-            style={{ marginRight: "10px" }}
-            selected={newEvent.start.toString()}
-            onChange={(start) => { 
-                setNewEvent({...newEvent, title: text, start}) 
-                setStartDate(start);
-                setStartDatePicker(start.toLocaleDateString());
-              } 
-            }
-            value={startDatePicker}
-            />
-            <DatePicker 
-            placeholderText="End Date"
-            minDate={startDate}
-            selected={newEvent.end.toString()}
-            onChange={(end) => {
-                end.setUTCHours(23,59,59,999);
-                setNewEvent({...newEvent, title: text, end});
-                setEndDatePicker(end.toLocaleDateString() );
-              }
-            }
-            value={endDatePicker}
-            /> */}
-            {/* <button
-              onClick={handleAddEvent}
-            >
-            Add event
-            </button> */}
         </div>
         <Calendar
             views={["month"]}
@@ -140,14 +96,14 @@ export default function Events() {
             events={events} 
             startAccessor="start"
             endAccessor="end"
-            style={{ height: 700, margin: "50px" }}
+            style={{ height: 700 }}
             onSelectSlot={handleSelect}
             onSelectEvent={(e)=>handleDateClick(e)}
         />
         <EventModal
           modalType={modalType}
-          modalStatus={modalStatus} 
-          onClose={handleModalClose}
+          modalStatus={modalStatus.toString()} 
+          //onClose={handleModalClose}
           onConfirm={handleModalConfirm}
           start={startDatePicker}
           end={endDatePicker}

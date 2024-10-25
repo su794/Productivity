@@ -9,6 +9,7 @@
   --color-scrollbar: #aaa7a7;
   --border-radius: 4px;
   --color-orange: #cf571e;
+  --color-theme: #000;
 }
 
 body {
@@ -31,6 +32,7 @@ html.dark {
   --color-bg: #22243b;
   --color-grey: #4e4e4e;
   --color-text: #fdfffd; 
+  --color-theme: #fff;
 }
 
 * {
@@ -39,9 +41,10 @@ html.dark {
 
 #root {
   width: 100%;
+  max-width: 992px;
   height: 100%;
   background: var(--color-white);
-  border-radius: var(--border-radius);
+  margin: 0 auto;
 }
 ul {
   list-style: none;
@@ -52,7 +55,7 @@ button {
   outline: none;
   border: none;
   padding: 5px 10px;
-  border: 1px solid #000;
+  border: 1px solid var(--color-theme);
   border-radius: var(--border-radius);
 }
 
@@ -86,7 +89,20 @@ body {
   background-color: var(--color-bg-dark);
 }
 
-.weekly-wrapper {
+.weekly-wrapper,
+#root > div {
   background: var(--color-bg);
   border-radius: var(--border-radius);
+}
+
+/* Dark */
+html.dark 
+
+/* calendar */
+.rbc-event, 
+.rbc-day-slot .rbc-background-event,
+.rbc-event.rbc-selected, 
+.rbc-day-slot 
+.rbc-selected.rbc-background-event {
+  background-color: var(--color-orange) !important;
 }

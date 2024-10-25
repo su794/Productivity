@@ -27,18 +27,15 @@ export default function EventModal({ modalType, modalStatus, onClose, onConfirm,
         className={`${styles[modalStatus]} ${styles.bg}`}
     >
         <h3>{ modalType === 'add' ? 'Add a new Event' : 'Edit the event' } on { start.toString() }</h3>
-        <input 
-            type='text'
-            value={title}
-            onChange={handleTitleChange}
-        />
-        <Button text={'Cancel'} onClick={handleClickClose} />
-        {/* <button
-            onClick={handleClickClose}
-        >Cancel</button> */}
-        <button
-            onClick={handleClickConfirm}
-        >Submit</button>
+        <div className={styles.inputs}>
+            <input 
+                type='text'
+                value={title}
+                onChange={handleTitleChange}
+            />
+            <Button text={'Cancel'} onClick={handleClickClose} />
+            <Button text={'Submit'} onClick={handleClickConfirm} />
+        </div>
     </div>
   )
 }
