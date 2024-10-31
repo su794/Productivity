@@ -1,3 +1,10 @@
 .App {
     text-align: center;
 }
+.rbc-event, 
+.rbc-day-slot .rbc-background-event,
+.rbc-event.rbc-selected, 
+.rbc-day-slot 
+.rbc-selected.rbc-background-event {
+  background-color: var(--color-orange) !important;
+}

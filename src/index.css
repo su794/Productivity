@@ -43,9 +43,15 @@ html.dark {
   width: 100%;
   max-width: 992px;
   height: 100%;
-  background: var(--color-white);
+  background: var(--color-bg);
   margin: 0 auto;
 }
+
+h1,
+h2 {
+  color: var(--color-text);
+}
+
 ul {
   list-style: none;
   padding-left: 0;
@@ -91,12 +97,31 @@ body {
 
 .weekly-wrapper,
 #root > div {
+  position: relative;
   background: var(--color-bg);
   border-radius: var(--border-radius);
 }
 
 /* Dark */
-html.dark 
+html.dark .rbc-toolbar button {
+  color: var(--color-white);
+  background: var(--color-orange);
+}
+
+html.dark .rbc-header,
+html.dark .rbc-toolbar-label,
+html.dark .rbc-button-link {
+  color: var(--color-white);
+}
+
+html.dark .rbc-off-range .rbc-button-link {
+  color: var(--color-bg);
+}
+
+html.dark .rbc-now.rbc-current .rbc-button-link {
+  color: var(--color-orange);
+  font-weight: 700;
+}
 
 /* calendar */
 .rbc-event, 
@@ -105,4 +130,23 @@ html.dark
 .rbc-day-slot 
 .rbc-selected.rbc-background-event {
   background-color: var(--color-orange) !important;
+}
+
+/* Modal */
+.close {
+  display: none;
+}
+
+.open {
+  display: block;
+  width: 90%;
+  max-width: 550px;
+  border-radius: 8px;
+  padding: 0 15px 15px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
 }

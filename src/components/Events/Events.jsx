@@ -25,7 +25,7 @@ const locales = {
   });
   
 export default function Events() {
-  const { modalStatus, toggleModalStatus } = useContext(useModalStatus);
+  const { modalStatus, toggleModalStatus } = useModalStatus();
   const [events, setEvents] = useState(() => readEventsFromLocalStorage());
 
   const [text, setText] = useState('');
@@ -65,6 +65,7 @@ export default function Events() {
     setStartDatePicker(start);
     setEndDatePicker(end);
     console.log(start, end);
+    toggleModalStatus();
   }
 
   const handleDateClick = (e) => {
@@ -102,7 +103,7 @@ export default function Events() {
         />
         <EventModal
           modalType={modalType}
-          modalStatus={modalStatus.toString()} 
+          //modalStatus={modalStatus.toString()} 
           //onClose={handleModalClose}
           onConfirm={handleModalConfirm}
           start={startDatePicker}

@@ -3,6 +3,7 @@ import styles from './Filters.module.css';
 import { FaMoon } from 'react-icons/fa';
 import { IoSunny } from "react-icons/io5";
 import { DarkModeContext, useDarkMode } from '../../context/DarkModeContext';
+import Button from '../Button/Button';
 
 export default function Filters( { filters, onFilter } ) {
     const [currentFilter, setCurrentFilter] = useState(filters[0]);
@@ -20,9 +21,7 @@ export default function Filters( { filters, onFilter } ) {
   return (
     <>
       <div className={styles.themeToggle}>
-        <button onClick={() => toggleDarkMode()}>
-          { darkMode ? <IoSunny /> : <FaMoon /> }
-        </button>
+        <Button text={ darkMode ? <IoSunny /> : <FaMoon /> } onClick={() => toggleDarkMode()} />
       </div>
       <header>
       <h1 className={styles.heading}>Weekly Todo List</h1>

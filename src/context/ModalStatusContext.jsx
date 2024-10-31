@@ -7,8 +7,6 @@ export function ModalStatusProvider({ children }) {
     const toggleModalStatus = () => {
         setModalStatus( status => !status );
         updateModalStatus(!modalStatus);
-
-        console.log(modalStatus);
     }
 
     return (
@@ -19,11 +17,10 @@ export function ModalStatusProvider({ children }) {
 }
 
 function updateModalStatus(modalStatus) {
-    
     if(modalStatus) {
         document.documentElement.classList.add('modal-open');
     } else {
-        document.documentElement.classList.remove('modal-close');
+        document.documentElement.classList.remove('modal-open');
     }
 }
 export const useModalStatus = () => useContext(ModalStatusContext);
