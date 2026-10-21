@@ -6,7 +6,7 @@ This Productivity project has both a to-do list and a calendar. I usually use a 
 
 - Add and Delete my to-do items. (If the input field is blank, the item add button is not disabled.)
 - Items are saved in local storage. So as long as the same browser is used, items are not gone when closed.
-- You can filter to-do items by 'All', 'Active', and 'Complete' filters.
+- You can filter to-do items by 'All', 'Active', and 'Completed' filters.
 - There is a dark mode toggle on the top right corner for accessibility.
 - A calendar shows the events on specific dates under the to-do list. When the date is clicked, the pop-up will appear to add the event title.
 
