@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import styles from './Filters.module.css';
-import { IconType } from 'react-icons';
+import type { IconType } from 'react-icons';
 import { FaMoon } from 'react-icons/fa';
 import { IoSunny } from "react-icons/io5";
 import { DarkModeContext, useDarkMode } from '../../context/DarkModeContext';
