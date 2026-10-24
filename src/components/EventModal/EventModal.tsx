@@ -1,10 +1,17 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import styles from './EventModal.module.css';
 import { v4 as uuidv4 } from 'uuid';
 import Button from '../Button/Button';
 import { useModalStatus } from '../../context/ModalStatusContext';
 
-export default function EventModal({ modalType, onClose, onConfirm, start, end }) {
+interface EventModalProps {
+    modalType: string;
+    onConfirm: () => void;
+    start: string;
+    end: string;
+}
+
+export default function EventModal({ modalType, onConfirm, start, end }: EventModalProps) {
     const [title, setTitle] = useState('');
     const { modalStatus, toggleModalStatus } = useModalStatus();
     
