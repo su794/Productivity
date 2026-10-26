@@ -25,10 +25,18 @@ export function ModalStatusProvider({ children }: ModalStatusProviderProps) {
     )
 }
 
-function updateModalStatus() {
-    const context = useContext(ModalStatusContext);
-    if (context === undefined) {
-        throw new Error("useModalStatus must be used within a ModalStatusProvider");
+function updateModalStatus(modalStatus: boolean) {
+    if (modalStatus) {
+        document.documentElement.classList.add("modal-open");
+    } else {
+        document.documentElement.classList.remove("modal-open");
     }
-    return context;
 }
+
+export const useModalStatus = () => {
+  const context = useContext(ModalStatusContext);
+  if (context === undefined) {
+    throw new Error("useModalStatus must be used within a ModalStatusProvider");
+  }
+  return context;
+};

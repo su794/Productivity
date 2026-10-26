@@ -3,10 +3,11 @@ import styles from './EventModal.module.css';
 import { v4 as uuidv4 } from 'uuid';
 import Button from '../Button/Button';
 import { useModalStatus } from '../../context/ModalStatusContext';
+import type { CalendarEvent } from '../../types/calendarEvent';
 
 interface EventModalProps {
     modalType: string;
-    onConfirm: () => void;
+    onConfirm: (event: CalendarEvent) => void;
     start: string;
     end: string;
 }
@@ -15,8 +16,8 @@ export default function EventModal({ modalType, onConfirm, start, end }: EventMo
     const [title, setTitle] = useState('');
     const { modalStatus, toggleModalStatus } = useModalStatus();
     
-    const handleTitleChange = (e) => setTitle(e.target.value);
-    const handleClickClose = () => toggleModalStatus(!modalStatus);
+    const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => setTitle(e.target.value);
+    const handleClickClose = () => toggleModalStatus();
 
     const handleClickConfirm = () => {
 
@@ -26,7 +27,7 @@ export default function EventModal({ modalType, onConfirm, start, end }: EventMo
 
         onConfirm({id: uuidv4(), title, start, end});
 
-        toggleModalStatus(!modalStatus);
+        toggleModalStatus();
 
         setTitle('');
     }
