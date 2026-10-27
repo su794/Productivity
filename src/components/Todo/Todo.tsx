@@ -1,10 +1,10 @@
-import React from 'react';
 import { FaTrashAlt } from "react-icons/fa";
 import styles from './Todo.module.css';
 import Button from '../Button/Button';
+import type { Todo } from "../../types/todo";
 
-export default function Todo({ todo, onUpdate, onDelete }) {
-  const handleUpdate = (e) => {
+export default function Todo({ todo, onUpdate, onDelete }: Todo) {
+  const handleUpdate = (e: React.ChangeEvent<HTMLInputElement>) => {
     let status = ( e.target.checked ? 'completed' : 'active' );
     onUpdate({...todo, status});
 }
