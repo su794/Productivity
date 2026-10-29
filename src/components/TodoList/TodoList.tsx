@@ -1,18 +1,20 @@
 import { useEffect, useState } from 'react'
 import AddTodo from '../AddTodo/AddTodo';
 import Todo from '../Todo/Todo';
+import type { Filter } from '../../types/filter';
+import type { TodoProps } from '../../types/todo';
 
-export default function TodoList({ filter }) {
+export default function TodoList({ filter }: {filter: Filter}) {
     const [todos, setTodos] = useState(() => readTodosFromLocalStorage());
 
   useEffect( () => {
     localStorage.setItem('todos', JSON.stringify(todos));
   }, [todos]);
 
-  const handleDelete = (deleted) => setTodos( todos.filter ( todo => todo.id != deleted.id ) );
-  const handleUpdate = (updated) => setTodos( todos.map( todo  => ( todo.id === updated.id ? updated : todo )  ) );
+  const handleDelete = (deleted: TodoProps) => setTodos( todos.filter ( (todo: TodoProps) => todo.id != deleted.id ) );
+  const handleUpdate = (updated: TodoProps) => setTodos( todos.map( (todo: TodoProps)  => ( todo.id === updated.id ? updated : todo )  ) );
 
-  const handleAdd = (newTodo) => {
+  const handleAdd = (newTodo: TodoProps) => {
     setTodos([...todos, newTodo])
   }
 
@@ -21,7 +23,7 @@ export default function TodoList({ filter }) {
     <>
       <ul>
         {
-          filtered.map( (todo) => <Todo key={todo.id} todo={todo} onDelete={handleDelete} onUpdate={handleUpdate}/>
+          filtered.map( (todo: TodoProps) => <Todo key={todo.id} todo={todo} onDelete={handleDelete} onUpdate={handleUpdate}/>
           )
         }
       </ul>
@@ -36,10 +38,10 @@ function readTodosFromLocalStorage() {
   return storedTodos ? JSON.parse(storedTodos) : [];
 }
 
-function getFilteredTodos(todos, filter) {
+function getFilteredTodos(todos: TodoProps[], filter: Filter) {
     if ( filter == 'all') {
         return todos;
     }
 
-    return todos.filter( t => t.status === filter);
+    return todos.filter( (t: TodoProps) => t.status === filter);
 }

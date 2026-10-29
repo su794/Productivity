@@ -1,12 +1,6 @@
-import React from 'react';
+import type { ButtonProps } from '../../types/button';
 
-type FilterButtonProps = {
-  text: React.ReactNode;
-  onClick: () => any;
-  className?: string;
-};
-
-export default function Button({ text, onClick, className }: FilterButtonProps) {
+export default function Button({ text, onClick, className }: ButtonProps) {
   return (
     <button className={className} onClick={onClick}>{text}</button>
   )

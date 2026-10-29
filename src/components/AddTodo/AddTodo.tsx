@@ -2,11 +2,12 @@ import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import styles from './AddTodo.module.css';
 import Button from '../Button/Button';
+import type { AddTodoProps } from '../../types/todo';
 
-export default function AddTodo({onAdd}) {
+export default function AddTodo({onAdd}: AddTodoProps) {
     const [text, setText] = useState('');
-    const handleChange = (e) => setText(e.target.value);
-    const handleAddTodo = (e) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => setText(e.target.value);
+    const handleAddTodo = (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
         if(text.trim().length === 0) {
             return;

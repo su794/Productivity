@@ -30,7 +30,7 @@ export function DarkModeProvider({ children }: DarkModeroviderProps) {
     )
 }
 
-function updateDarkMode(darkMode) {
+function updateDarkMode(darkMode: boolean) {
     if(darkMode) {
         document.documentElement.classList.add('dark');
         window.localStorage.setItem('theme', 'dark');
