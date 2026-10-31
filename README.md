@@ -14,8 +14,8 @@ Tools: ReactJS, React Big Calendar, React CSS Module.
 
 ## Hurdle and Solution
 
-1. When updating the to-do item status, I tried to change the status only. I thought I could use JS click function with this. but in React, It was much easier to grab the item's id and update the object.
-2. When I add the event on the big calendar, the data type is Date object. I needed to save these dates in the local storage to display the calendar with old events. And Localstorage saves the string type data only so I had to convert it to a string type with an event's title and an event's unique ID. But in order to display the added events in React Big calendar, data type has to be Data object. So this data which is saved in local storage should be converted back to Date Object.
+1. When updating the to-do item status, I tried to change the status only. I thought I could use JS click function with this. but in React, It was much easier to grab the item's ID and update the object.
+2. React Big Calendar requires 'start' and 'end' to be Date objects, but localStorage can only store strings. When saving, JSON.stringify converts each Date to an ISO string. When loading, a JSON.parse reviver converts them back to Date objects, so previously saved events can be displayed on the calendar
 3. I wanted to customize the event pop-up modal to save the events in local storage. For the styling, at first, I was struggling to send the status to the parent component and share it with other components too by using component prop. Then I realised react useContext is better here. So once I wrap components that need the modal open/close status, I can use the current modal status and the same function in different components to close the popup and change the modal status.
 
 # Getting Started with Create React App
