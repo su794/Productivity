@@ -3,5 +3,10 @@
   "references": [
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.node.json" }
-  ]
+  ],
+  "compilerOptions": {
+    "strict": true,                  // 모든 엄격한 타입 검사 옵션 활성화
+    "noImplicitAny": true,           // 타입 추론이 실패하여 'any'가 되는 경우 에러 발생
+    "strictNullChecks": true         // null 및 undefined 엄격한 검사
+  }
 }

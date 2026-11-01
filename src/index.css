@@ -65,6 +65,11 @@ button {
   border-radius: var(--border-radius);
 }
 
+button.invalid {
+  pointer-events: none;
+  background-color: grey !important;
+}
+
 .active button {
   color: var(--color-white);
   background: var(--color-orange);

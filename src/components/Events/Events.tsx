@@ -6,7 +6,6 @@ import { startOfWeek } from "date-fns/startOfWeek";
 import { getDay } from "date-fns/getDay";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "react-datepicker/dist/react-datepicker.css";
-import { v4 as uuidv4 } from 'uuid';
 import EventModal from '../EventModal/EventModal';
 import styles from './Events.module.css';
 import { useModalStatus } from '../../context/ModalStatusContext';
@@ -28,7 +27,7 @@ const locales = {
 
 export default function Events() {
   const { toggleModalStatus } = useModalStatus();
-  const [events, setEvents] = useState(() => readEventsFromLocalStorage());
+  const [events, setEvents] = useState<CalendarEvent[]>(readEventsFromLocalStorage);
 
   // const [startDate, setStartDate] = useState( null );
   const [startDatePicker, setStartDatePicker] = useState('');
@@ -41,8 +40,6 @@ export default function Events() {
     localStorage.setItem('events', JSON.stringify(events));
   }, [events] )
 
-  const [newEvent, _setNewEvent] = useState({id: uuidv4(), title: "", start: "", end: ""});
-
   const handleSelect = (slotInfo: SlotInfo) => {
     //setModalStatus('modal-open');
     setModalType('add');
@@ -53,25 +50,26 @@ export default function Events() {
     toggleModalStatus();
   }
 
-  const handleDateClick = (e: any) => {
+  const handleDateClick = (e: CalendarEvent) => {
     //setModalStatus('modal-open');
     setModalType('edit');
-    setStartDatePicker(e.start);
-    console.log(e);
+    setStartDatePicker(e.start.toISOString());
   };
 
   //const handleModalClose = (status) => setModalStatus(status);
   const handleModalConfirm = (eModal: CalendarEvent) => { 
-    console.log(eModal);
-    const { id, title, start, end } = eModal; 
-    setEvents([...events, {id, title, start, end}]);
+    // console.log(eModal);
+    // const { id, title, start, end } = eModal; 
+    // setEvents([...events, {id, title, start, end}]);
 
-    localStorage.setItem('events', JSON.stringify(newEvent));
+    // localStorage.setItem('events', JSON.stringify(newEvent));
+
+    setEvents((prev) => [...prev, eModal]);
 
   }
   return (
     <div className={styles.calendar}>
-        <h2>Canlendar</h2>
+        <h2>Calendar</h2>
         <div>
         </div>
         <Calendar
@@ -84,7 +82,7 @@ export default function Events() {
             endAccessor="end"
             style={{ height: 700 }}
             onSelectSlot={handleSelect}
-            onSelectEvent={(e)=>handleDateClick(e)}
+            onSelectEvent={handleDateClick}
         />
         <EventModal
           modalType={modalType}
@@ -97,22 +95,17 @@ export default function Events() {
   )
 }
 
-function readEventsFromLocalStorage() {
+function readEventsFromLocalStorage(): CalendarEvent[] {
+  const storedEvents = localStorage.getItem('events');
+  if ( storedEvents === null ) return [];
 
-    function parseDate(k: string, v: string) {
-    if ((k === "start" || k === "end" )) {
-      
-      return new Date(v);
-    }
-    return v;
+  try {
+    const parsed = JSON.parse(storedEvents, (key, value) =>
+     key === 'start' || key === 'end' ? new Date(value) : value
+    );
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
   }
-    const storedEvents = localStorage.getItem('events');
-
-    if( storedEvents !== null ) {
-      let parsedEvents = JSON.parse(storedEvents, parseDate);
-
-      console.log(parsedEvents);
-      return storedEvents ? parsedEvents : [];
-    }
     
 }

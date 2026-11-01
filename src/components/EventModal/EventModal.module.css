@@ -18,3 +18,8 @@
     background: black;
     color: white;
 }
+
+button.invalid {
+    background: grey;
+}
+

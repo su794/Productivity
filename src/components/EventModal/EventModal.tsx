@@ -14,22 +14,32 @@ interface EventModalProps {
 
 export default function EventModal({ modalType, onConfirm, start, end }: EventModalProps) {
     const [title, setTitle] = useState('');
+    const [emptyText, setEmptyText] = useState(true);
     const { modalStatus, toggleModalStatus } = useModalStatus();
     
-    const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => setTitle(e.target.value);
-    const handleClickClose = () => toggleModalStatus();
+    const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setTitle(e.target.value);
+        setEmptyText(false);
+    };
+    const handleClickClose = () => {
+        toggleModalStatus();
+        setTitle('');
+        setEmptyText(true);
+    }
 
     const handleClickConfirm = () => {
 
         if(title.trim().length === 0) {
+            setEmptyText(true);
             return;
         }
 
-        onConfirm({id: uuidv4(), title, start, end});
+        onConfirm({id: uuidv4(), title, start: new Date(start), end: new Date(end)});
 
         toggleModalStatus();
 
         setTitle('');
+        setEmptyText(true);
     }
 
     return (
@@ -44,7 +54,7 @@ export default function EventModal({ modalType, onConfirm, start, end }: EventMo
                 onChange={handleTitleChange}
             />
             <Button text={'Cancel'} onClick={handleClickClose} />
-            <Button text={'Submit'} onClick={handleClickConfirm} />
+            <Button text={'Submit'} onClick={handleClickConfirm} className={emptyText ? 'invalid' : ''} />
         </div>
     </div>
   )
