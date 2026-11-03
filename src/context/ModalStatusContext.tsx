@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 
 type ModalStatusContextType = {
   modalStatus: boolean;
@@ -15,22 +15,17 @@ export function ModalStatusProvider({ children }: ModalStatusProviderProps) {
     const [modalStatus, setModalStatus] = useState(false);
     const toggleModalStatus = () => {
         setModalStatus( status => !status );
-        updateModalStatus(!modalStatus);
     }
+
+    useEffect(() => {
+      document.documentElement.classList.toggle("modal-open", modalStatus);
+    }, [modalStatus]);
 
     return (
         <ModalStatusContext.Provider value={{modalStatus, toggleModalStatus}}>
             {children}
         </ModalStatusContext.Provider>
     )
-}
-
-function updateModalStatus(modalStatus: boolean) {
-    if (modalStatus) {
-        document.documentElement.classList.add("modal-open");
-    } else {
-        document.documentElement.classList.remove("modal-open");
-    }
 }
 
 export const useModalStatus = () => {

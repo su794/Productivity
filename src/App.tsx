@@ -13,7 +13,6 @@ function App() {
   const [filter, setFilter] = useState<Filter>('all');
 
   const handleCurrentFilter = (selected: Filter) => {
-    console.log(selected);
     setFilter(selected);
   }
 

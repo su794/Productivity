@@ -29,11 +29,9 @@ export default function Events() {
   const { toggleModalStatus } = useModalStatus();
   const [events, setEvents] = useState<CalendarEvent[]>(readEventsFromLocalStorage);
 
-  // const [startDate, setStartDate] = useState( null );
   const [startDatePicker, setStartDatePicker] = useState('');
   const [endDatePicker, setEndDatePicker] = useState('');
 
-  //const [modalStatus, setModalStatus] = useState('modal-close');
   const [modalType, setModalType] = useState('');
 
   useEffect( () => {
@@ -41,31 +39,20 @@ export default function Events() {
   }, [events] )
 
   const handleSelect = (slotInfo: SlotInfo) => {
-    //setModalStatus('modal-open');
     setModalType('add');
   
     setStartDatePicker(slotInfo.start.toISOString());
     setEndDatePicker(slotInfo.end.toISOString());
-    console.log(slotInfo.start, slotInfo.end);
     toggleModalStatus();
   }
 
   const handleDateClick = (e: CalendarEvent) => {
-    //setModalStatus('modal-open');
     setModalType('edit');
     setStartDatePicker(e.start.toISOString());
   };
 
-  //const handleModalClose = (status) => setModalStatus(status);
   const handleModalConfirm = (eModal: CalendarEvent) => { 
-    // console.log(eModal);
-    // const { id, title, start, end } = eModal; 
-    // setEvents([...events, {id, title, start, end}]);
-
-    // localStorage.setItem('events', JSON.stringify(newEvent));
-
     setEvents((prev) => [...prev, eModal]);
-
   }
   return (
     <div className={styles.calendar}>

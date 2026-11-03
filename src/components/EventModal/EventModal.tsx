@@ -18,8 +18,16 @@ export default function EventModal({ modalType, onConfirm, start, end }: EventMo
     const { modalStatus, toggleModalStatus } = useModalStatus();
     
     const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setTitle(e.target.value);
-        setEmptyText(false);
+        if (e.target.value.trim() === '') {
+            setTitle('');
+            setEmptyText(true);
+        } else {
+            setTitle(e.target.value);
+            setEmptyText(false);
+        }
+        
+        // setTitle(e.target.value);
+        // setEmptyText(false);
     };
     const handleClickClose = () => {
         toggleModalStatus();
