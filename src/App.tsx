@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import './App.css';
 import TodoList from './components/TodoList/TodoList';
-import { DarkModeProvider } from './context/DarkModeContext';
+import { DarkModeProvider } from './context/DarkModeProvider';
 import Filters from './components/Filters/Filters';
 import Events from './components/Events/Events';
-import { ModalStatusProvider } from './context/ModalStatusContext';
+import { ModalStatusProvider } from './context/ModalStatusProvider';
 import { FilterTabs } from './types/filter';
 import type { Filter } from './types/filter';
 

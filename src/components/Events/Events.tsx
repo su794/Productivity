@@ -8,7 +8,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import "react-datepicker/dist/react-datepicker.css";
 import EventModal from '../EventModal/EventModal';
 import styles from './Events.module.css';
-import { useModalStatus } from '../../context/ModalStatusContext';
+import { useModalStatus } from '../../context/useModalStatus';
 import type { CalendarEvent } from '../../types/calendarEvent';
 import { enUS } from 'date-fns/locale';
 

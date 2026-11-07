@@ -2,7 +2,7 @@ import { useState } from 'react';
 import styles from './Filters.module.css';
 import { FaMoon } from 'react-icons/fa';
 import { IoSunny } from "react-icons/io5";
-import { useDarkMode } from '../../context/DarkModeContext';
+import { useDarkMode } from '../../context/useDarkMode';
 import Button from '../Button/Button';
 import { FilterTabs } from '../../types/filter';
 import type { Filter } from '../../types/filter';

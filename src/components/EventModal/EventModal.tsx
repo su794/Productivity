@@ -2,7 +2,7 @@ import { useState } from 'react';
 import styles from './EventModal.module.css';
 import { v4 as uuidv4 } from 'uuid';
 import Button from '../Button/Button';
-import { useModalStatus } from '../../context/ModalStatusContext';
+import { useModalStatus } from '../../context/useModalStatus';
 import type { CalendarEvent } from '../../types/calendarEvent';
 
 interface EventModalProps {
