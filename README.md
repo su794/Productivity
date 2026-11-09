@@ -10,12 +10,15 @@ This Productivity project has both a to-do list and a calendar. I usually use a 
 - There is a dark mode toggle on the top right corner for accessibility.
 - A calendar shows the events on specific dates under the to-do list. When the date is clicked, the pop-up will appear to add the event title.
 
-Tools: ReactJS, React Big Calendar, React CSS Module.
+
+## Tech Stack
+
+React, TypeScript, Vite, React Big Calendar, CSS Modules, npm
 
 ## Hurdle and Solution
 
 1. When updating the to-do item status, I tried to change the status only. I thought I could use JS click function with this. but in React, It was much easier to grab the item's ID and update the object.
-2. React Big Calendar requires 'start' and 'end' to be Date objects, but localStorage can only store strings.
+2. React Big Calendar requires `start` and `end` to be Date objects, but localStorage can only store strings. I convert them to ISO strings with `JSON.stringify` when saving and back to `Date` objects with a `JSON.parse` reviver when loading.
 3. I wanted to customize the event pop-up modal to save the events in local storage. For the styling, at first, I was struggling to send the status to the parent component and share it with other components too by using a component prop. Then I realised React useContext is better here. So once I wrap components that need the modal open/close status, I can use the current modal status and the same function in different components to close the popup and change the modal status.
 
 ## Why TypeScript?
@@ -34,16 +37,14 @@ Types document the intent of the code and catch mistakes before runtime, which m
 ## Why Vite and npm?
 
 I started with Create React App and Yarn. Yarn gave me installation errors, and CRA is no longer maintained. It couldn't install the latest TypeScript, which I needed to type a React icon component passed as a prop. 
+I migrated to Vite with npm, which supports current TypeScript out of the box and keeps setup simple with a single `package-lock.json`.
 
-## Tech Stack
-
-React, TypeScript, Vite, React Big Calendar, CSS Modules, npm
 
 ## Getting Started
 
 ```bash
-git clone [repo-url]
-cd [repo-name]
+git clone https://github.com/su794/Productivity.git
+cd Productivity
 npm install
 npm run dev
 ```
