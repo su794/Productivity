@@ -10,6 +10,7 @@ This Productivity project has both a to-do list and a calendar. I usually use a 
 - There is a dark mode toggle on the top right corner for accessibility.
 - A calendar shows the events on specific dates under the to-do list. When the date is clicked, the pop-up will appear to add the event title.
 
+**Live demo:** https://todo-productivity-phi.vercel.app
 
 ## Tech Stack
 
