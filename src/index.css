@@ -70,6 +70,11 @@ button.invalid {
   background-color: grey !important;
 }
 
+button.alert {
+    background: #D2042D !important;
+    border-color: #D2042D;
+}
+
 .active button {
   color: var(--color-white);
   background: var(--color-orange);

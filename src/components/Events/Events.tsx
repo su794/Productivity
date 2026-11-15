@@ -32,7 +32,8 @@ export default function Events() {
   const [startDatePicker, setStartDatePicker] = useState('');
   const [endDatePicker, setEndDatePicker] = useState('');
 
-  const [modalType, setModalType] = useState('');
+  const [modalType, setModalType] = useState<'add' | 'edit'>('add');
+  const [selectedEvent, setSelectedEvent] = useState<CalendarEvent | null>(null);
 
   useEffect( () => {
     localStorage.setItem('events', JSON.stringify(events));
@@ -49,6 +50,9 @@ export default function Events() {
   const handleDateClick = (e: CalendarEvent) => {
     setModalType('edit');
     setStartDatePicker(e.start.toISOString());
+    toggleModalStatus();
+    console.log(e);
+    setSelectedEvent(e);
   };
 
   const handleModalConfirm = (eModal: CalendarEvent) => { 
@@ -76,6 +80,7 @@ export default function Events() {
           onConfirm={handleModalConfirm}
           start={startDatePicker}
           end={endDatePicker}
+          event={selectedEvent}
         />
     </div>
     

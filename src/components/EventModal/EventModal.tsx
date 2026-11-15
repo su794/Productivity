@@ -6,17 +6,20 @@ import { useModalStatus } from '../../context/useModalStatus';
 import type { CalendarEvent } from '../../types/calendarEvent';
 
 interface EventModalProps {
-    modalType: string;
+    modalType: 'add' | 'edit';
     onConfirm: (event: CalendarEvent) => void;
     start: string;
     end: string;
+    event: CalendarEvent | null;
 }
 
-export default function EventModal({ modalType, onConfirm, start, end }: EventModalProps) {
+export default function EventModal({ modalType, onConfirm, start, end, event }: EventModalProps) {
     const [title, setTitle] = useState('');
     const [emptyText, setEmptyText] = useState(true);
     const { modalStatus, toggleModalStatus } = useModalStatus();
     
+    console.log(event?.title);
+
     const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.value.trim() === '') {
             setTitle('');
@@ -50,6 +53,8 @@ export default function EventModal({ modalType, onConfirm, start, end }: EventMo
         setEmptyText(true);
     }
 
+    const handleClickDelete = () => {}
+
     return (
     <div    
         className={`${modalStatus ? 'open' : 'close'} ${styles.bg}`}
@@ -58,11 +63,15 @@ export default function EventModal({ modalType, onConfirm, start, end }: EventMo
         <div className={styles.inputs}>
             <input 
                 type='text'
-                value={title}
+                // value={title}
+                value={
+                    modalType === 'add' ? title : ''
+                }
                 onChange={handleTitleChange}
             />
             <Button text={'Cancel'} onClick={handleClickClose} />
             <Button text={'Submit'} onClick={handleClickConfirm} className={emptyText ? 'invalid' : ''} />
+            { modalType === 'edit' && <Button text={'Delete'} onClick={handleClickDelete} className='alert' />}
         </div>
     </div>
   )
