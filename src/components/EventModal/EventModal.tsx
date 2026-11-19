@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './EventModal.module.css';
 import { v4 as uuidv4 } from 'uuid';
 import Button from '../Button/Button';
@@ -17,23 +17,49 @@ export default function EventModal({ modalType, onConfirm, start, end, event }: 
     const [title, setTitle] = useState('');
     const [emptyText, setEmptyText] = useState(true);
     const { modalStatus, toggleModalStatus } = useModalStatus();
-    
-    console.log(event?.title);
+    const displayCalendarDate = start.toString();
+    const displayFormattedDate = new Date(displayCalendarDate).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+    });
 
+    useEffect( () => {
+        if( modalType === 'add' ) {
+            setTitle('');
+            setEmptyText(true);
+        } else if ( modalType === 'edit' && event ) {
+setTitle(event.title);
+setEmptyText(false);
+        }
+        // if(event) {
+
+        //     console.log(event);
+            
+        //     setTitle(event?.title);
+        //     setEmptyText(false);
+        // }
+    }, [event, modalType])
+
+//     useEffect( () => {
+//         if(modalType === 'add') {
+//             setTitle('');
+//         } else {
+// setTitle(event.title);
+//         }
+//     }, [modalType])
     const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.value.trim() === '') {
+        if ( e.target.value.trim() === '' ) {
             setTitle('');
             setEmptyText(true);
         } else {
             setTitle(e.target.value);
             setEmptyText(false);
         }
-        
-        // setTitle(e.target.value);
-        // setEmptyText(false);
     };
     const handleClickClose = () => {
         toggleModalStatus();
+        
         setTitle('');
         setEmptyText(true);
     }
@@ -59,13 +85,13 @@ export default function EventModal({ modalType, onConfirm, start, end, event }: 
     <div    
         className={`${modalStatus ? 'open' : 'close'} ${styles.bg}`}
     >
-        <h3>{ modalType === 'add' ? 'Add a new Event' : 'Edit the event' } on { start.toString() }</h3>
+        <h3>{ modalType === 'add' ? 'Add a new Event' : 'Edit the event' } on { displayFormattedDate }</h3>
         <div className={styles.inputs}>
             <input 
                 type='text'
                 // value={title}
                 value={
-                    modalType === 'add' ? title : ''
+                    modalType === 'add' ? title : event?.title
                 }
                 onChange={handleTitleChange}
             />

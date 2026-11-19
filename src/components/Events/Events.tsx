@@ -27,8 +27,8 @@ const locales = {
 
 export default function Events() {
   const { toggleModalStatus } = useModalStatus();
+  const [date, setDate] = useState(new Date());
   const [events, setEvents] = useState<CalendarEvent[]>(readEventsFromLocalStorage);
-
   const [startDatePicker, setStartDatePicker] = useState('');
   const [endDatePicker, setEndDatePicker] = useState('');
 
@@ -45,6 +45,7 @@ export default function Events() {
     setStartDatePicker(slotInfo.start.toISOString());
     setEndDatePicker(slotInfo.end.toISOString());
     toggleModalStatus();
+  
   }
 
   const handleDateClick = (e: CalendarEvent) => {
@@ -52,12 +53,14 @@ export default function Events() {
     setStartDatePicker(e.start.toISOString());
     toggleModalStatus();
     console.log(e);
+    console.log(events);
     setSelectedEvent(e);
   };
 
   const handleModalConfirm = (eModal: CalendarEvent) => { 
     setEvents((prev) => [...prev, eModal]);
   }
+
   return (
     <div className={styles.calendar}>
         <h2>Calendar</h2>
@@ -67,13 +70,14 @@ export default function Events() {
             views={["month"]}
             selectable
             localizer={localizer}
-            defaultDate={new Date()}
             events={events} 
             startAccessor="start"
             endAccessor="end"
             style={{ height: 700 }}
             onSelectSlot={handleSelect}
             onSelectEvent={handleDateClick}
+            date={date}
+            onNavigate={setDate}
         />
         <EventModal
           modalType={modalType}
