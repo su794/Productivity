@@ -7,16 +7,18 @@ import type { CalendarEvent } from '../../types/calendarEvent';
 
 interface EventModalProps {
     modalType: 'add' | 'edit';
-    onConfirm: (event: CalendarEvent) => void;
+    onAdd: (event: CalendarEvent) => void;
+    onEdit: (id:string, title:string) => void;
     start: string;
     end: string;
     event: CalendarEvent | null;
 }
 
-export default function EventModal({ modalType, onConfirm, start, end, event }: EventModalProps) {
+export default function EventModal({ modalType, onAdd, onEdit, start, end, event }: EventModalProps) {
     const [title, setTitle] = useState('');
     const [emptyText, setEmptyText] = useState(true);
     const { modalStatus, toggleModalStatus } = useModalStatus();
+    
     const displayCalendarDate = start.toString();
     const displayFormattedDate = new Date(displayCalendarDate).toLocaleDateString("en-US", {
         year: "numeric",
@@ -64,15 +66,33 @@ setEmptyText(false);
         setEmptyText(true);
     }
 
-    const handleClickConfirm = () => {
+    const handleClickAdd = () => {
 
         if(title.trim().length === 0) {
             setEmptyText(true);
             return;
         }
 
-        onConfirm({id: uuidv4(), title, start: new Date(start), end: new Date(end)});
+        onAdd({id: uuidv4(), title, start: new Date(start), end: new Date(end)});
+        console.log(modalType);
+        
+        toggleModalStatus();
 
+        setTitle('');
+        setEmptyText(true);
+    }
+
+    const handleClickEdit = () => {
+        if(title.trim().length === 0) {
+            setEmptyText(true);
+            return;
+        }
+
+        if( event === null ) return;
+
+        onEdit(event.id, title);
+
+        console.log(modalType, event);
         toggleModalStatus();
 
         setTitle('');
@@ -89,15 +109,17 @@ setEmptyText(false);
         <div className={styles.inputs}>
             <input 
                 type='text'
-                // value={title}
-                value={
-                    modalType === 'add' ? title : event?.title
-                }
+                value={title}
                 onChange={handleTitleChange}
             />
             <Button text={'Cancel'} onClick={handleClickClose} />
-            <Button text={'Submit'} onClick={handleClickConfirm} className={emptyText ? 'invalid' : ''} />
-            { modalType === 'edit' && <Button text={'Delete'} onClick={handleClickDelete} className='alert' />}
+            { modalType === 'add' && <Button text={'Submit'} onClick={handleClickAdd} className={emptyText ? 'invalid' : ''} />}
+            { modalType === 'edit' && (
+                <>
+                    <Button text={'Edit'} onClick={handleClickEdit} className={emptyText ? 'invalid' : ''} />
+                    <Button text={'Delete'} onClick={handleClickDelete} className='alert' />    
+                </>
+            )}
         </div>
     </div>
   )

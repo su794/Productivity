@@ -57,8 +57,13 @@ export default function Events() {
     setSelectedEvent(e);
   };
 
-  const handleModalConfirm = (eModal: CalendarEvent) => { 
+  const onAdd = (eModal: CalendarEvent) => { 
     setEvents((prev) => [...prev, eModal]);
+  }
+
+  const onEdit = (id: string, newTitle: string) => {
+    console.log(id, newTitle);
+    setEvents( events.map(e => e.id === id ? { ...e, title: newTitle } : e) )
   }
 
   return (
@@ -81,7 +86,8 @@ export default function Events() {
         />
         <EventModal
           modalType={modalType}
-          onConfirm={handleModalConfirm}
+          onAdd={onAdd}
+          onEdit={onEdit}
           start={startDatePicker}
           end={endDatePicker}
           event={selectedEvent}
