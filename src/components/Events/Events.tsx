@@ -26,7 +26,7 @@ const locales = {
   
 
 export default function Events() {
-  const { toggleModalStatus } = useModalStatus();
+  const { modalStatus, openModal } = useModalStatus();
   const [date, setDate] = useState(new Date());
   const [events, setEvents] = useState<CalendarEvent[]>(readEventsFromLocalStorage);
   const [startDatePicker, setStartDatePicker] = useState('');
@@ -44,17 +44,18 @@ export default function Events() {
   
     setStartDatePicker(slotInfo.start.toISOString());
     setEndDatePicker(slotInfo.end.toISOString());
-    toggleModalStatus();
+    openModal();
   
   }
 
   const handleDateClick = (e: CalendarEvent) => {
     setModalType('edit');
     setStartDatePicker(e.start.toISOString());
-    toggleModalStatus();
+    
     console.log(e);
     console.log(events);
     setSelectedEvent(e);
+    openModal();
   };
 
   const onAdd = (eModal: CalendarEvent) => { 
@@ -63,7 +64,7 @@ export default function Events() {
 
   const onEdit = (id: string, newTitle: string) => {
     console.log(id, newTitle);
-    setEvents( events.map(e => e.id === id ? { ...e, title: newTitle } : e) )
+    setEvents( (prev) => prev.map(e => e.id === id ? { ...e, title: newTitle } : e) )
   }
 
   return (
@@ -84,14 +85,17 @@ export default function Events() {
             date={date}
             onNavigate={setDate}
         />
-        <EventModal
-          modalType={modalType}
-          onAdd={onAdd}
-          onEdit={onEdit}
-          start={startDatePicker}
-          end={endDatePicker}
-          event={selectedEvent}
-        />
+        {
+          modalStatus &&
+          <EventModal
+            modalType={modalType}
+            onAdd={onAdd}
+            onEdit={onEdit}
+            start={startDatePicker}
+            end={endDatePicker}
+            event={selectedEvent}
+          />
+        }
     </div>
     
   )

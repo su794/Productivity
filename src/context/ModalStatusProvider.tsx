@@ -3,8 +3,16 @@ import { ModalStatusContext, type ModalStatusProviderProps } from "./ModalStatus
 
 export function ModalStatusProvider({ children }: ModalStatusProviderProps) {
     const [modalStatus, setModalStatus] = useState(false);
-    const toggleModalStatus = () => {
-        setModalStatus( status => !status );
+
+    const openModal = () => {
+        document.documentElement.classList.add("modal-open");
+        setModalStatus( true );
+        console.log('open');
+    }
+
+    const closeModal = () => {
+        document.documentElement.classList.remove('modal-open');
+        setModalStatus( false );
     }
 
     useEffect(() => {
@@ -12,7 +20,7 @@ export function ModalStatusProvider({ children }: ModalStatusProviderProps) {
     }, [modalStatus]);
 
     return (
-        <ModalStatusContext.Provider value={{modalStatus, toggleModalStatus}}>
+        <ModalStatusContext.Provider value={{modalStatus, openModal, closeModal}}>
             {children}
         </ModalStatusContext.Provider>
     )

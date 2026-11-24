@@ -2,7 +2,8 @@ import { createContext, type ReactNode } from "react";
 
 export type ModalStatusContextType = {
   modalStatus: boolean;
-  toggleModalStatus: () => void;
+  openModal: () => void;
+  closeModal: () => void;
 };
 
 export type ModalStatusProviderProps = {
