@@ -9,15 +9,14 @@ interface EventModalProps {
     modalType: 'add' | 'edit';
     onAdd: (event: CalendarEvent) => void;
     onEdit: (id:string, title:string) => void;
+    onDelete: (id: string) => void;
     start: string;
     end: string;
     event: CalendarEvent | null;
 }
 
-export default function EventModal({ modalType, onAdd, onEdit, start, end, event }: EventModalProps) {
-    const [title, setTitle] = useState(
-        modalType === 'edit' && event ? event.title : ''
-    );
+export default function EventModal({ modalType, onAdd, onEdit, onDelete, start, end, event }: EventModalProps) {
+    const [title, setTitle] = useState( event?.title ?? '' );
     
     const { modalStatus, closeModal } = useModalStatus();
     
@@ -36,9 +35,6 @@ export default function EventModal({ modalType, onAdd, onEdit, start, end, event
     };
     const handleClickClose = () => {
         closeModal();
-
-        setTitle('');
-        
     }
 
     const handleClickAdd = () => {
@@ -51,8 +47,6 @@ export default function EventModal({ modalType, onAdd, onEdit, start, end, event
         console.log(modalType);
         
         closeModal();
-
-        setTitle('');
     }
 
     const handleClickEdit = () => {
@@ -66,18 +60,19 @@ export default function EventModal({ modalType, onAdd, onEdit, start, end, event
 
         console.log(modalType, event);
         closeModal();
-
-        setTitle('');
     }
 
     const handleClickDelete = () => {
+        if( event === null ) return;
+        
+        onDelete(event.id);
         closeModal();
     }
 
     return <>
         {modalStatus && 
         <div    
-            className={`${styles.bg}`}
+            className={`${ modalStatus === true ? 'open' : 'close' } ${styles.bg}`}
         >
             <h3>{ modalType === 'add' ? 'Add a new Event' : 'Edit the event' } on { displayFormattedDate }</h3>
             <div className={styles.inputs}>

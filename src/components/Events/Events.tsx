@@ -41,7 +41,7 @@ export default function Events() {
 
   const handleSelect = (slotInfo: SlotInfo) => {
     setModalType('add');
-  
+    setSelectedEvent(null);
     setStartDatePicker(slotInfo.start.toISOString());
     setEndDatePicker(slotInfo.end.toISOString());
     openModal();
@@ -63,8 +63,12 @@ export default function Events() {
   }
 
   const onEdit = (id: string, newTitle: string) => {
-    console.log(id, newTitle);
     setEvents( (prev) => prev.map(e => e.id === id ? { ...e, title: newTitle } : e) )
+  }
+
+  const onDelete = (id: string) => {
+    console.log(id);
+    setEvents( (prev) => prev.filter(e => e.id !== id))
   }
 
   return (
@@ -91,6 +95,7 @@ export default function Events() {
             modalType={modalType}
             onAdd={onAdd}
             onEdit={onEdit}
+            onDelete={onDelete}
             start={startDatePicker}
             end={endDatePicker}
             event={selectedEvent}
